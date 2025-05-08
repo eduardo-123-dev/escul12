@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inscrição de Atividades Escolares</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      background: white;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #555;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .success {
+      margin-top: 20px;
+      color: green;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Inscrição de Atividades Escolares</h1>
+    <form id="formInscricao">
+      <label for="nome">Nome do Aluno:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="turma">Turma:</label>
+      <input type="text" id="turma" name="turma" required>
+
+      <label for="atividade">Atividade:</label>
+      <select id="atividade" name="atividade" required>
+        <option value="">Selecione uma atividade</option>
+        <option value="Futebol">Futebol</option>
+        <option value="Teatro">Teatro</option>
+        <option value="Xadrez">Xadrez</option>
+        <option value="Música">Música</option>
+      </select>
+
+      <label for="obs">Observações (opcional):</label>
+      <textarea id="obs" name="obs" rows="3"></textarea>
+
+      <button type="submit">Enviar Inscrição</button>
+    </form>
+
+    <div class="success" id="mensagemSucesso"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('formInscricao');
+    const mensagemSucesso = document.getElementById('mensagemSucesso');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const dados = {
+        nome: form.nome.value,
+        turma: form.turma.value,
+        atividade: form.atividade.value,
+        observacoes: form.obs.value
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbxMhwrYXmDZI27kSE9FRQTD_5edMic_gPopxsNnzEU4dQAMgkhdi_GVs6-n7rGI9iWk/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+      })
+      .then(() => {
+        mensagemSucesso.textContent = "Inscrição enviada com sucesso!";
+        form.reset();
+      })
+      .catch(() => {
+        mensagemSucesso.textContent = "Erro ao enviar inscrição.";
+      });
+    });
+  </script>
+</body>
+</html>
