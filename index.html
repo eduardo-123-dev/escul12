@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Inscrição de Atividades Escolares</title>
+  <title>Inscription aux Activités Scolaires</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -55,60 +55,64 @@
 </head>
 <body>
   <div class="container">
-    <h1>Inscrição de Atividades Escolares</h1>
-    <form id="formInscricao">
-      <label for="nome">Nome do Aluno:</label>
-      <input type="text" id="nome" name="nome" required>
+    <h1>Inscription aux Activités Du p45</h1>
+    <h6>create by eduardinho-dev</h6>
+    <form id="formInscription">
+      <label for="nom">Nom de l'élève :</label>
+      <input type="text" id="nom" name="nom" required>
 
-      <label for="turma">Turma:</label>
-      <input type="text" id="turma" name="turma" required>
+      <label for="classe">Classe :</label>
+      <input type="text" id="classe" name="classe" required>
 
-      <label for="atividade">Atividade:</label>
-      <select id="atividade" name="atividade" required>
-        <option value="">Selecione uma atividade</option>
-        <option value="Futebol">Futebol</option>
-        <option value="Teatro">Teatro</option>
-        <option value="Xadrez">Xadrez</option>
-        <option value="Música">Música</option>
+      <label for="activite">Activité :</label>
+      <select id="activite" name="activite" required>
+        <option value="">Choisissez une activité</option>
+        <option value="Jeux de société">Jeux de société</option>
+        <option value="Lire">Lire</option>
+        <option value="Football">Football</option>
+        <option value="Volley">Volley</option>
+        <option value="Basket">Basket</option>
+        <option value="Activités avec les DASPAS">Activités avec les DASPAS</option>
+        <option value="Au hasard">Au hasard</option>
       </select>
 
-      <label for="obs">Observações (opcional):</label>
+      <label for="obs">Remarques (facultatif) :</label>
       <textarea id="obs" name="obs" rows="3"></textarea>
 
-      <button type="submit">Enviar Inscrição</button>
+      <button type="submit">Envoyer l'inscription</button>
     </form>
 
-    <div class="success" id="mensagemSucesso"></div>
+    <div class="success" id="messageSucces"></div>
   </div>
 
   <script>
-    const form = document.getElementById('formInscricao');
-    const mensagemSucesso = document.getElementById('mensagemSucesso');
+    const form = document.getElementById('formInscription');
+    const messageSucces = document.getElementById('messageSucces');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const dados = {
-        nome: form.nome.value,
-        turma: form.turma.value,
-        atividade: form.atividade.value,
-        observacoes: form.obs.value
+      const donnees = {
+        nom: form.nom.value,
+        classe: form.classe.value,
+        activite: form.activite.value,
+        remarques: form.obs.value
       };
 
-      fetch('https://script.google.com/macros/s/AKfycbxMhwrYXmDZI27kSE9FRQTD_5edMic_gPopxsNnzEU4dQAMgkhdi_GVs6-n7rGI9iWk/exec', {
+      fetch("https://script.google.com/macros/s/AKfycbxMhwrYXmDZI27kSE9FRQTD_5edMic_gPopxsNnzEU4dQAMgkhdi_GVs6-n7rGI9iWk/exec", {
         method: 'POST',
         mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(dados)
+        body: JSON.stringify(donnees)
       })
       .then(() => {
-        mensagemSucesso.textContent = "Inscrição enviada com sucesso!";
+        messageSucces.textContent = "Inscription envoyée avec succès !";
         form.reset();
       })
       .catch(() => {
-        mensagemSucesso.textContent = "Erro ao enviar inscrição.";
+        messageSucces.textContent = "Erreur lors de l'envoi de l'inscription.";
       });
     });
   </script>
